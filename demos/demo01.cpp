@@ -30,10 +30,14 @@ int main()
 	G.add_edge(4, 6);
 
 	G.print_graph();
-
-	cout << "\nDeleting node 5" << endl;
+	cout << endl;
+	cout << "Node 5 degree: " << G.node_degree(5) << endl;
+	cout << "Node 5 in degree: " << G.node_indegree(5) << endl;
+	cout << "Node 5 out degree: " << G.node_outdegree(5) << endl;
+	cout << "Deleting node 5" << endl;
 	G.del_node(5);
 
+	cout << endl;
 	G.print_graph();
 
 	return 0;

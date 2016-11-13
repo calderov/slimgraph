@@ -47,6 +47,24 @@ size_t Graph::total_edges()
 }
 
 
+size_t Graph::node_degree(NODEID v)
+{
+	return node_indegree(v) + node_outdegree(v);
+}
+
+
+size_t Graph::node_indegree(NODEID v)
+{
+	return _nodes[v].inNeighbors.size();
+}
+
+
+size_t Graph::node_outdegree(NODEID v)
+{
+	return _nodes[v].outNeighbors.size();
+}
+
+
 EDGEID Graph::get_available_edge_id()
 {
 	while (edge_exists(_edgeIdGen))

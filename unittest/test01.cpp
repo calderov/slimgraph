@@ -73,6 +73,32 @@ TEST(DeleteEdgeTest, Positive)
 	EXPECT_FALSE(G.del_edge(777));
 }
 
+TEST(QueryNodeDegrees, Positive)
+{
+	Graph G;
+	
+	EXPECT_TRUE (G.add_node(1));
+	EXPECT_TRUE (G.add_node(2));
+	EXPECT_TRUE (G.add_node(3));
+	EXPECT_TRUE (G.add_node(4));
+	EXPECT_TRUE (G.add_node(5));
+	EXPECT_TRUE (G.add_node(6));
+
+	EXPECT_TRUE (G.add_edge(1, 5));
+	EXPECT_TRUE (G.add_edge(2, 5));
+	EXPECT_TRUE (G.add_edge(3, 5));
+	EXPECT_TRUE (G.add_edge(4, 6));
+	EXPECT_TRUE (G.add_edge(5, 4));
+	EXPECT_TRUE (G.add_edge(5, 6));
+
+	EXPECT_TRUE(G.total_nodes() == 6);
+	EXPECT_TRUE(G.total_edges() == 6);
+	
+	EXPECT_TRUE(G.node_degree(5) == 5);
+	EXPECT_TRUE(G.node_indegree(5) == 3);
+	EXPECT_TRUE(G.node_outdegree(5) == 2);
+}
+
 TEST(PrintGraphTest, Positive)
 {
 	Graph G;
@@ -83,7 +109,6 @@ TEST(PrintGraphTest, Positive)
 	G.print_graph();
 	EXPECT_TRUE (true);
 }
-
 
 int main(int argc, char* argv[])
 {

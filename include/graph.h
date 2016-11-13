@@ -19,8 +19,13 @@ public:
 
 	// Printing functions
 	void print_graph();
+
+	// Numerical queries
 	size_t total_nodes();
 	size_t total_edges();
+	size_t node_degree(NODEID v);
+	size_t node_indegree(NODEID v);
+	size_t node_outdegree(NODEID v);
 
 	// Node structural operations
 	bool node_exists(NODEID v);

@@ -8,19 +8,20 @@ all:
 debug:
 	# COMPILING DEBUG DEMOS TO ./build/debug/
 	if [ ! -d "build" ]; then mkdir build; fi
-	if [ ! -d "build/debug" ]; then mkdir build/bin; fi
+	if [ ! -d "build/debug" ]; then mkdir build/debug; fi
 	g++ -g -std=c++11 -isystem ./include demos/demo01.cpp include/graph.cpp -o build/debug/demo01
 
 test:
 	# COMPILING UNIT TESTS TO ./build/unittests/
 	if [ ! -d "build" ]; then mkdir build; fi
-	if [ ! -d "build/unittest" ]; then mkdir build/bin; fi
+	if [ ! -d "build/unittest" ]; then mkdir build/unittest; fi
 	g++ -std=c++11 -isystem ${GTEST_DIR}/include -pthread unittest/test01.cpp include/graph.cpp ${GTEST_DIR}/build/libgtest.a -o build/unittest/test01.ut
+	build/unittest/test01.ut
 
 coverage:
 	# COMPILING AND RUNNING COVERAGE TESTS
 	if [ ! -d "build" ]; then mkdir build; fi
-	if [ ! -d "build/unittest" ]; then mkdir build/bin; fi
+	if [ ! -d "build/unittest" ]; then mkdir build/unittest; fi
 	g++ -std=c++11 -isystem ${GTEST_DIR}/include -pthread unittest/test01.cpp include/graph.cpp ${GTEST_DIR}/build/libgtest.a -o build/unittest/test01.ut --coverage
 	mv *.gcno build/unittest
 	build/unittest/test01.ut
