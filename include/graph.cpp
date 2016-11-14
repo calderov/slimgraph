@@ -251,3 +251,13 @@ bool Graph::del_edge(NODEID v, NODEID u)
 
 	return true;
 }
+
+
+EDGEID Graph::edgeId(NODEID v, NODEID u)
+{
+	// If no EDGEID corresponds to the given pair, return BAD_EDGEID
+	if (!edge_exists(v, u))
+		return BAD_EDGEID;
+
+	return _edgeIndex[pair<NODEID, NODEID>(v, u)];
+}

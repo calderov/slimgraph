@@ -20,9 +20,8 @@ int main()
 	
 	clock_t time_start;
 	clock_t time_end;
-	double elapsed_time;
 
-  	cout << "Creating nodes" << endl;
+  	cout << "Creating "<< MAXNODES <<" nodes" << endl;
 	time_start = clock();
 	for (int v = 0; v < MAXNODES; v++)
 		G.add_node(v);
@@ -30,7 +29,7 @@ int main()
   	
   	double elapsed_time_nodes = double(time_end - time_start) / CLOCKS_PER_SEC;
 	
-  	cout << "Creating edges" << endl;
+  	cout << "Creating "<< MAXEDGES <<" edges" << endl;
 	time_start = clock();
 	for (int e = 0; e < MAXEDGES; e++)
 		G.add_edge(e % MAXNODES, (e + 1) % MAXNODES);
@@ -39,8 +38,9 @@ int main()
   	double elapsed_time_edges = double(time_end - time_start) / CLOCKS_PER_SEC;
 
   	cout << endl;
-	cout << "Total nodes: " << G.total_nodes() << " created in " << elapsed_time_nodes << " secs." << endl;
-	cout << "Total edges: " << G.total_edges() << " created in " << elapsed_time_edges << " secs." << endl;
+	cout << "Time creating nodes: " << elapsed_time_nodes << " secs." << endl;
+	cout << "Time creating edges: " << elapsed_time_edges << " secs." << endl;
+	cout << "Total time: " << elapsed_time_nodes + elapsed_time_edges << " secs." << endl;
 
 	return 0;
 }

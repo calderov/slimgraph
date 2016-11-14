@@ -1,4 +1,4 @@
-#include "typedefs.h"
+#include "propertymanager.h"
 
 class Graph{
 
@@ -14,6 +14,11 @@ private:
 	EDGEID get_available_edge_id();
 
 public:
+
+	PropertyManager nodeProperties;
+	PropertyManager edgeProperties;
+	
+	// Constructor and destructor
 	Graph();
 	~Graph();
 
@@ -39,4 +44,7 @@ public:
 	bool add_edge(EDGEID e, NODEID v, NODEID u);
 	bool del_edge(EDGEID e);
 	bool del_edge(NODEID v, NODEID u);
+
+	// Query an EDGEID from a pair
+	EDGEID edgeId(NODEID v, NODEID u);
 };
