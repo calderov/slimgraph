@@ -11,12 +11,13 @@ private:
 	map<EDGEID, EDGE> _edges;
 	map<pair<NODEID, NODEID>, EDGEID> _edgeIndex;
 
+	PropertyManager _nodeProperties;
+	PropertyManager _edgeProperties;
+	
 	EDGEID get_available_edge_id();
 
 public:
 
-	PropertyManager nodeProperties;
-	PropertyManager edgeProperties;
 	
 	// Constructor and destructor
 	Graph();
@@ -47,4 +48,37 @@ public:
 
 	// Query an EDGEID from a pair
 	EDGEID edgeId(NODEID v, NODEID u);
+
+	// Node Property handling functions
+	bool add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type);
+	bool set_node_property(NODEID v, PROPERTY_NAME name, const char* value);
+	bool set_node_property(NODEID v, PROPERTY_NAME name, string value);
+	
+	PROPERTY_RESULT get_node_property(NODEID v, PROPERTY_NAME name);
+
+	template <typename T> bool set_node_property(NODEID v, PROPERTY_NAME name, T value)
+	{
+		return _nodeProperties.set(v, name, value);
+	}
+
+	// Edge Property handling functions
+	bool add_edge_property(PROPERTY_NAME name, PROPERTY_TYPE type);
+	bool set_edge_property(EDGEID v, PROPERTY_NAME name, const char* value);
+	bool set_edge_property(EDGEID v, PROPERTY_NAME name, string value);
+	bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value);
+	bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string type);
+	
+	PROPERTY_RESULT get_edge_property(EDGEID e, PROPERTY_NAME name);
+	PROPERTY_RESULT get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name);
+	
+	template <typename T> bool set_edge_property(EDGEID v, PROPERTY_NAME name, T value)
+	{
+		return _edgeProperties.set(v, name, value);
+	}
+
+	template <typename T> bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, T value)
+	{
+		return _edgeProperties.set(edgeId(v, u), name, value);
+	}
+
 };

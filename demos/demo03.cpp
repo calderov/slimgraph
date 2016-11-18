@@ -22,26 +22,25 @@ int main()
 	G.add_edge(2, 3);
 	G.add_edge(3, 1);
 
-	G.nodeProperties.add("Name", STRING);
-	G.nodeProperties.set(1, "Name", "Artur");
-	G.nodeProperties.set(2, "Name", "Negro");
-	G.nodeProperties.set(3, "Name", "Gibri");
+	G.add_node_property("Name", STRING);
+	G.set_node_property(1, "Name", "Artur");
+	G.set_node_property(2, "Name", "Negro");
+	G.set_node_property(3, "Name", "Gibri");
 
-	G.edgeProperties.add("W", DOUBLE);
-	G.edgeProperties.set(G.edgeId(1, 2), "W", 1111111);
-	G.edgeProperties.set(G.edgeId(2, 3), "W", 2222222);
-	G.edgeProperties.set(G.edgeId(3, 1), "W", 3333333);
+	G.add_edge_property("W", DOUBLE);
+	G.set_edge_property(1, 2, "W", 1111111);
+	G.set_edge_property(2, 3, "W", 2222222);
+	G.set_edge_property(3, 1, "W", 3333333);
 
 	cout << "PROPERTY \"Names\":" << endl;
-	cout << 1 << " : " << G.nodeProperties.get(1, "Name").to_string() << endl;
-	cout << 2 << " : " << G.nodeProperties.get(2, "Name").to_string() << endl;
-	cout << 3 << " : " << G.nodeProperties.get(3, "Name").to_string() << endl;
+	cout << 1 << " : " << G.get_node_property(1, "Name").to_string() << endl;
+	cout << 2 << " : " << G.get_node_property(2, "Name").to_string() << endl;
+	cout << 3 << " : " << G.get_node_property(3, "Name").to_string() << endl;
 	cout << endl;
 	cout << "PROPERTY \"W\":" << endl;
-	cout << 1 << " : " << G.edgeProperties.get(G.edgeId(1, 2), "W").to_string() << endl;
-	cout << 2 << " : " << G.edgeProperties.get(G.edgeId(2, 3), "W").to_string() << endl;
-	cout << 3 << " : " << G.edgeProperties.get(G.edgeId(3, 1), "W").to_string() << endl;
-
+	cout << 1 << " : " << G.get_edge_property(1, 2, "W").to_string() << endl;
+	cout << 1 << " : " << G.get_edge_property(2, 3, "W").to_string() << endl;
+	cout << 1 << " : " << G.get_edge_property(3, 1, "W").to_string() << endl;
 
 	return 0;
 }

@@ -261,3 +261,71 @@ EDGEID Graph::edgeId(NODEID v, NODEID u)
 
 	return _edgeIndex[pair<NODEID, NODEID>(v, u)];
 }
+
+
+// PROPERTY HANDLING FUNCTIONS
+
+bool Graph::add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type)
+{
+	return _nodeProperties.add(name, type);
+}
+
+
+bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, const char* value)
+{
+	return _nodeProperties.set(v, name, value);
+}
+
+
+bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, string value)
+{
+	return _nodeProperties.set(v, name, value);
+}
+
+
+PROPERTY_RESULT Graph::get_node_property(NODEID v, PROPERTY_NAME name)
+{
+	return _nodeProperties.get(v, name);
+}
+
+
+bool Graph::add_edge_property(PROPERTY_NAME name, PROPERTY_TYPE type)
+{
+	return _edgeProperties.add(name, type);
+}
+
+
+bool Graph::set_edge_property(EDGEID v, PROPERTY_NAME name, const char* value)
+{
+	return _edgeProperties.set(v, name, value);
+}
+
+
+bool Graph::set_edge_property(EDGEID v, PROPERTY_NAME name, string value)
+{
+	return _edgeProperties.set(v, name, value);
+}
+
+
+bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value)
+{
+	return _edgeProperties.set(edgeId(v, u), name, value);
+}
+
+
+bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string value)
+{
+	return _edgeProperties.set(edgeId(v, u), name, value);
+}
+
+
+PROPERTY_RESULT Graph::get_edge_property(EDGEID e, PROPERTY_NAME name)
+{
+	return _edgeProperties.get(e, name);
+}
+
+
+PROPERTY_RESULT Graph::get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name)
+{
+	return _edgeProperties.get(edgeId(v, u), name);
+}
