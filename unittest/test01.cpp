@@ -149,6 +149,85 @@ TEST(NodeProperties, Positive)
 	EXPECT_FALSE(G.set_node_property(1, "Name", 31415));
 }
 
+TEST(EdgeProperties, Positive)
+{
+	Graph G;
+
+	G.add_edge(1, 2);
+
+	// Test string edge properties
+	string expectedName = "Miles";
+	EXPECT_TRUE(G.add_edge_property("Units", STRING));
+	EXPECT_TRUE(G.set_edge_property(1, 2, "Units", expectedName));
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Units").type == STRING);
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Units").value.valueStr.compare(expectedName) == 0);
+	
+	// Test numeric edge properties
+	EXPECT_TRUE(G.add_edge_property("Lenght", DOUBLE));
+	EXPECT_TRUE(G.set_edge_property(1, 2, "Lenght",  20));
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Lenght").type == DOUBLE);
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Lenght").value.valueNum == 20);
+
+	// Overwriting properties should succeed
+	string meters = "meters";
+	EXPECT_TRUE(G.set_edge_property(1, 2, "Units", meters));
+	EXPECT_TRUE(G.set_edge_property(1, 2, "Units", "Kilometers"));
+	EXPECT_TRUE(G.set_edge_property(1, 2, "Lenght",  32.18));
+
+	// If a property already exists, then add_edge_property should fail
+	EXPECT_FALSE(G.add_edge_property("Lenght", DOUBLE));
+	
+	// If a property does not exists, then set_edge_property should fail
+	EXPECT_FALSE(G.set_edge_property(1, 2, "Toll-Currency", "USD"));
+	EXPECT_FALSE(G.set_edge_property(1, 2, "Toll-Cost", 4.5));
+
+	// Setting STRING values to DOUBLE properties should fail
+	EXPECT_FALSE(G.set_edge_property(1, 2, "Lenght", "FooBar"));
+
+	// Setting DOUBLE values to STRING properties should fail
+	EXPECT_FALSE(G.set_edge_property(1, 2, "Units", 31415));
+}
+
+TEST(EdgePropertiesWithKnownEdgeId, Positive)
+{
+	Graph G;
+
+	EDGEID edgeId = 777;
+	G.add_edge(edgeId, 1, 2);
+
+	// Test string edge properties
+	string expectedName = "Miles";
+	EXPECT_TRUE(G.add_edge_property("Units", STRING));
+	EXPECT_TRUE(G.set_edge_property(edgeId, "Units", expectedName));
+	EXPECT_TRUE(G.get_edge_property(edgeId, "Units").type == STRING);
+	EXPECT_TRUE(G.get_edge_property(edgeId, "Units").value.valueStr.compare(expectedName) == 0);
+	
+	// Test numeric edge properties
+	EXPECT_TRUE(G.add_edge_property("Lenght", DOUBLE));
+	EXPECT_TRUE(G.set_edge_property(edgeId, "Lenght",  20));
+	EXPECT_TRUE(G.get_edge_property(edgeId, "Lenght").type == DOUBLE);
+	EXPECT_TRUE(G.get_edge_property(edgeId, "Lenght").value.valueNum == 20);
+
+	// Overwriting properties should succeed
+	string meters = "meters";
+	EXPECT_TRUE(G.set_edge_property(edgeId, "Units", meters));
+	EXPECT_TRUE(G.set_edge_property(edgeId, "Units", "Kilometers"));
+	EXPECT_TRUE(G.set_edge_property(edgeId, "Lenght",  32.18));
+
+	// If a property already exists, then add_edge_property should fail
+	EXPECT_FALSE(G.add_edge_property("Lenght", DOUBLE));
+	
+	// If a property does not exists, then set_edge_property should fail
+	EXPECT_FALSE(G.set_edge_property(edgeId, "Toll-Currency", "USD"));
+	EXPECT_FALSE(G.set_edge_property(edgeId, "Toll-Cost", 4.5));
+
+	// Setting STRING values to DOUBLE properties should fail
+	EXPECT_FALSE(G.set_edge_property(edgeId, "Lenght", "FooBar"));
+
+	// Setting DOUBLE values to STRING properties should fail
+	EXPECT_FALSE(G.set_edge_property(edgeId, "Units", 31415));
+}
+
 int main(int argc, char* argv[])
 {
 	testing::InitGoogleTest(&argc, argv);
