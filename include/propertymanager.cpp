@@ -20,9 +20,9 @@ bool PropertyManager::property_exists(PROPERTY_NAME name)
 
 bool PropertyManager::add(PROPERTY_NAME name, PROPERTY_TYPE type)
 {
-	// If the property already exists
+	// If the property already exists, abort
 	if (property_exists(name))
-		return _propertyMap[name].type == type;
+		return false;
 	
 	VALUE_MAP valueMap;
 	valueMap.type = type;

@@ -1,3 +1,5 @@
+#include <string>
+
 #include "../include/graph.h"
 #include "gtest/gtest.h"
 
@@ -108,6 +110,43 @@ TEST(PrintGraphTest, Positive)
 
 	G.print_graph();
 	EXPECT_TRUE (true);
+}
+
+TEST(NodeProperties, Positive)
+{
+	Graph G;
+
+	G.add_node(1);
+
+	// Test string node properties
+	string expectedName = "John";
+	EXPECT_TRUE(G.add_node_property("Name", STRING));
+	EXPECT_TRUE(G.set_node_property(1, "Name", expectedName));
+	EXPECT_TRUE(G.get_node_property(1, "Name").type == STRING);
+	EXPECT_TRUE(G.get_node_property(1, "Name").value.valueStr.compare(expectedName) == 0);
+	
+	// Test numeric node properties
+	EXPECT_TRUE(G.add_node_property("Age", DOUBLE));
+	EXPECT_TRUE(G.set_node_property(1, "Age",  27));
+	EXPECT_TRUE(G.get_node_property(1, "Age").type == DOUBLE);
+	EXPECT_TRUE(G.get_node_property(1, "Age").value.valueNum == 27);
+
+	// Overwriting properties should succeed
+	EXPECT_TRUE(G.set_node_property(1, "Name", "Joe"));
+	EXPECT_TRUE(G.set_node_property(1, "Age",  28));
+
+	// If a property already exists, then add_node_property should fail
+	EXPECT_FALSE(G.add_node_property("Age", DOUBLE));
+	
+	// If a property does not exists, then set_node_property should fail
+	EXPECT_FALSE(G.set_node_property(1, "LastName", "Doe"));
+	EXPECT_FALSE(G.set_node_property(1, "Income", 1000000));
+
+	// Setting STRING values to DOUBLE properties should fail
+	EXPECT_FALSE(G.set_node_property(1, "Age", "FooBar"));
+
+	// Setting DOUBLE values to STRING properties should fail
+	EXPECT_FALSE(G.set_node_property(1, "Name", 31415));
 }
 
 int main(int argc, char* argv[])
