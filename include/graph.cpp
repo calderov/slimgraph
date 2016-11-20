@@ -273,19 +273,28 @@ bool Graph::add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 
 bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, const char* value)
 {
-	return _nodeProperties.set(v, name, value);
+	if (node_exists(v))
+		return _nodeProperties.set(v, name, value);
+	return false;
 }
 
 
 bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, string value)
 {
-	return _nodeProperties.set(v, name, value);
+	if (node_exists(v))
+		return _nodeProperties.set(v, name, value);
+	return false;
 }
 
 
 PROPERTY_RESULT Graph::get_node_property(NODEID v, PROPERTY_NAME name)
 {
-	return _nodeProperties.get(v, name);
+	if (node_exists(v))
+		return _nodeProperties.get(v, name);
+
+	PROPERTY_RESULT badResult;
+	badResult.type = ERROR;
+	return badResult;
 }
 
 
@@ -295,37 +304,55 @@ bool Graph::add_edge_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 }
 
 
-bool Graph::set_edge_property(EDGEID v, PROPERTY_NAME name, const char* value)
+bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, const char* value)
 {
-	return _edgeProperties.set(v, name, value);
+	if (edge_exists(e))
+		return _edgeProperties.set(e, name, value);
+	return false;
 }
 
 
-bool Graph::set_edge_property(EDGEID v, PROPERTY_NAME name, string value)
+bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, string value)
 {
-	return _edgeProperties.set(v, name, value);
+	if (edge_exists(e))
+		return _edgeProperties.set(e, name, value);
+	return false;
 }
 
 
 bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value)
 {
-	return _edgeProperties.set(edgeId(v, u), name, value);
+	if (edge_exists(v, u))
+		return _edgeProperties.set(edgeId(v, u), name, value);
+	return false;
 }
 
 
 bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string value)
 {
-	return _edgeProperties.set(edgeId(v, u), name, value);
+	if (edge_exists(v, u))
+		return _edgeProperties.set(edgeId(v, u), name, value);
+	return false;
 }
 
 
 PROPERTY_RESULT Graph::get_edge_property(EDGEID e, PROPERTY_NAME name)
 {
-	return _edgeProperties.get(e, name);
+	if (edge_exists(e))
+		return _edgeProperties.get(e, name);
+	
+	PROPERTY_RESULT badResult;
+	badResult.type = ERROR;
+	return badResult;
 }
 
 
 PROPERTY_RESULT Graph::get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name)
 {
-	return _edgeProperties.get(edgeId(v, u), name);
+	if (edge_exists(v, u))
+		return _edgeProperties.get(edgeId(v, u), name);
+	
+	PROPERTY_RESULT badResult;
+	badResult.type = ERROR;
+	return badResult;
 }

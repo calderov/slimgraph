@@ -147,6 +147,14 @@ TEST(NodeProperties, Positive)
 
 	// Setting DOUBLE values to STRING properties should fail
 	EXPECT_FALSE(G.set_node_property(1, "Name", 31415));
+
+	// Setting a property value on an unexistant node should fail
+	EXPECT_FALSE(G.set_node_property(999, "Name", expectedName));
+	EXPECT_FALSE(G.set_node_property(999, "Name", "FooBar"));
+	EXPECT_FALSE(G.set_node_property(999, "Age", 100));
+
+	// Getting a property value from an unexistant node should result in an error
+	EXPECT_TRUE(G.get_node_property(999, "Name").type == ERROR);
 }
 
 TEST(EdgeProperties, Positive)
@@ -186,6 +194,17 @@ TEST(EdgeProperties, Positive)
 
 	// Setting DOUBLE values to STRING properties should fail
 	EXPECT_FALSE(G.set_edge_property(1, 2, "Units", 31415));
+
+	// Setting a property value on an unexistant edge should fail
+	EXPECT_FALSE(G.set_edge_property(3, 4, "Units", expectedName));
+	EXPECT_FALSE(G.set_edge_property(3, 4, "Units", "FooBar"));
+	EXPECT_FALSE(G.set_edge_property(3, 4, "Lenght", 100));
+
+	// Getting a property value from an unexistant edge should result in an error
+	EXPECT_TRUE(G.get_edge_property(5, 6, "Units").type == ERROR);
+
+	// Querying for the EDGEID of an unexistenant edge should return BAD_EDGEID
+	EXPECT_TRUE(G.edgeId(5, 6) == BAD_EDGEID);
 }
 
 TEST(EdgePropertiesWithKnownEdgeId, Positive)
@@ -226,6 +245,14 @@ TEST(EdgePropertiesWithKnownEdgeId, Positive)
 
 	// Setting DOUBLE values to STRING properties should fail
 	EXPECT_FALSE(G.set_edge_property(edgeId, "Units", 31415));
+
+	// Setting a property value on an unexistant edge should fail
+	EXPECT_FALSE(G.set_edge_property(999, "Units", expectedName));
+	EXPECT_FALSE(G.set_edge_property(999, "Units", "FooBar"));
+	EXPECT_FALSE(G.set_edge_property(999, "Lenght", 100));
+
+	// Getting a property value from an unexistant edge should result in an error
+	EXPECT_TRUE(G.get_edge_property(999, "Units").type == ERROR);
 }
 
 int main(int argc, char* argv[])
