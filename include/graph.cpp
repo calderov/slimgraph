@@ -253,7 +253,7 @@ bool Graph::del_edge(NODEID v, NODEID u)
 }
 
 
-EDGEID Graph::edgeId(NODEID v, NODEID u)
+EDGEID Graph::get_edge_id(NODEID v, NODEID u)
 {
 	// If no EDGEID corresponds to the given pair, return BAD_EDGEID
 	if (!edge_exists(v, u))
@@ -323,7 +323,7 @@ bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, string value)
 bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value)
 {
 	if (edge_exists(v, u))
-		return _edgeProperties.set(edgeId(v, u), name, value);
+		return _edgeProperties.set(get_edge_id(v, u), name, value);
 	return false;
 }
 
@@ -331,7 +331,7 @@ bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME 
 bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string value)
 {
 	if (edge_exists(v, u))
-		return _edgeProperties.set(edgeId(v, u), name, value);
+		return _edgeProperties.set(get_edge_id(v, u), name, value);
 	return false;
 }
 
@@ -350,7 +350,7 @@ PROPERTY_RESULT Graph::get_edge_property(EDGEID e, PROPERTY_NAME name)
 PROPERTY_RESULT Graph::get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name)
 {
 	if (edge_exists(v, u))
-		return _edgeProperties.get(edgeId(v, u), name);
+		return _edgeProperties.get(get_edge_id(v, u), name);
 	
 	PROPERTY_RESULT badResult;
 	badResult.type = ERROR;

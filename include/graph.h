@@ -47,7 +47,7 @@ public:
 	bool del_edge(NODEID v, NODEID u);
 
 	// Query an EDGEID from a pair
-	EDGEID edgeId(NODEID v, NODEID u);
+	EDGEID get_edge_id(NODEID v, NODEID u);
 
 	// Node Property handling functions
 	bool add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type);
@@ -83,7 +83,7 @@ public:
 	template <typename T> bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, T value)
 	{
 		if (edge_exists(v, u))
-			return _edgeProperties.set(edgeId(v, u), name, value);
+			return _edgeProperties.set(get_edge_id(v, u), name, value);
 		return false;
 	}
 

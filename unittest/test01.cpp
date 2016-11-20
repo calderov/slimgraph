@@ -204,7 +204,7 @@ TEST(EdgeProperties, Positive)
 	EXPECT_TRUE(G.get_edge_property(5, 6, "Units").type == ERROR);
 
 	// Querying for the EDGEID of an unexistenant edge should return BAD_EDGEID
-	EXPECT_TRUE(G.edgeId(5, 6) == BAD_EDGEID);
+	EXPECT_TRUE(G.get_edge_id(5, 6) == BAD_EDGEID);
 }
 
 TEST(EdgePropertiesWithKnownEdgeId, Positive)
