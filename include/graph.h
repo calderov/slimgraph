@@ -49,11 +49,20 @@ public:
 	// Query an EDGEID from a pair
 	EDGEID get_edge_id(NODEID v, NODEID u);
 
+	// Query total properties
+	size_t total_node_properties();
+	size_t total_edge_properties();
+
 	// Node Property handling functions
 	bool add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type);
 	bool set_node_property(NODEID v, PROPERTY_NAME name, const char* value);
 	bool set_node_property(NODEID v, PROPERTY_NAME name, string value);
+	bool del_node_property(PROPERTY_NAME name);
+	bool del_all_node_properties();
 	
+	void print_node_properties(NODEID v);
+	void print_node_properties();
+
 	PROPERTY_RESULT get_node_property(NODEID v, PROPERTY_NAME name);
 
 	template <typename T> bool set_node_property(NODEID v, PROPERTY_NAME name, T value)
@@ -69,10 +78,16 @@ public:
 	bool set_edge_property(EDGEID e, PROPERTY_NAME name, string value);
 	bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value);
 	bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string type);
+	bool del_edge_property(PROPERTY_NAME name);
+	bool del_all_edge_properties();
 	
+	void print_edge_properties(NODEID v /*from*/, NODEID u /*to*/);
+	void print_edge_properties(EDGEID e);
+	void print_edge_properties();
+
 	PROPERTY_RESULT get_edge_property(EDGEID e, PROPERTY_NAME name);
 	PROPERTY_RESULT get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name);
-	
+
 	template <typename T> bool set_edge_property(EDGEID e, PROPERTY_NAME name, T value)
 	{
 		if (edge_exists(e))

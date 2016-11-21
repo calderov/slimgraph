@@ -15,15 +15,17 @@ public:
 	bool property_exists(PROPERTY_NAME name);
 	bool add(PROPERTY_NAME name, PROPERTY_TYPE type);
 	bool del(PROPERTY_NAME name);
+	bool del_all();
 	bool clear(ELEMID elemId);
-	bool clear_all();
 	
 	// Properties printing functions
 	void print_properties(ELEMID elemId);
 	void print_properties();
 	
 	// Get property values
+	const char* property_type_to_string(PROPERTY_TYPE type);
 	PROPERTY_RESULT get(ELEMID elemId, PROPERTY_NAME name);
+	size_t total_properties();
 
 	// Set string property values
 	bool set(ELEMID elemId, PROPERTY_NAME name, const char* value);

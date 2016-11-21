@@ -113,6 +113,7 @@ bool Graph::del_node(NODEID v)
 		for(auto u : _nodes[v].outNeighbors)
 			del_edge(v, u);
 
+		_nodeProperties.clear(v);
 		_nodes.erase(v);
 		_numNodes--;
 
@@ -233,6 +234,7 @@ bool Graph::del_edge(EDGEID e)
 	NODEID u = _edges[e].to;
 	_edgeIndex.erase(pair<NODEID, NODEID>(v, u));
 
+	_edgeProperties.clear(e);
 	_edges.erase(e);
 	_numEdges--;
 
@@ -247,9 +249,7 @@ bool Graph::del_edge(NODEID v, NODEID u)
 		return false;
 
 	EDGEID e = _edgeIndex[pair<NODEID, NODEID>(v, u)];
-	del_edge(e);
-
-	return true;
+	return del_edge(e);
 }
 
 
@@ -264,6 +264,17 @@ EDGEID Graph::get_edge_id(NODEID v, NODEID u)
 
 
 // PROPERTY HANDLING FUNCTIONS
+size_t Graph::total_node_properties()
+{
+	return _nodeProperties.total_properties();
+}
+
+
+size_t Graph::total_edge_properties()
+{
+	return _edgeProperties.total_properties();
+}
+
 
 bool Graph::add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 {
@@ -284,6 +295,35 @@ bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, string value)
 	if (node_exists(v))
 		return _nodeProperties.set(v, name, value);
 	return false;
+}
+
+
+bool Graph::del_node_property(PROPERTY_NAME name)
+{
+	return _nodeProperties.del(name);
+}
+
+
+bool Graph::del_all_node_properties()
+{
+	return _nodeProperties.del_all();
+}
+
+
+void Graph::print_node_properties(NODEID v)
+{
+	if (node_exists(v))
+	{
+		cout << "Node Properties for node " << v << ": " << endl;
+		_nodeProperties.print_properties(v);
+	}
+}
+
+
+void Graph::print_node_properties()
+{
+	cout << "Node Properties:" << endl;
+	_nodeProperties.print_properties();
 }
 
 
@@ -333,6 +373,42 @@ bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME 
 	if (edge_exists(v, u))
 		return _edgeProperties.set(get_edge_id(v, u), name, value);
 	return false;
+}
+
+
+bool Graph::del_edge_property(PROPERTY_NAME name)
+{
+	return _edgeProperties.del(name);
+}
+
+
+bool Graph::del_all_edge_properties()
+{
+	return _edgeProperties.del_all();
+}
+
+
+void Graph::print_edge_properties(NODEID v, NODEID u)
+{
+	if (edge_exists(v, u))
+		print_edge_properties(get_edge_id(v, u));
+}
+
+
+void Graph::print_edge_properties(EDGEID e)
+{
+	if (edge_exists(e))
+	{
+		cout << "Edge Properties for edge " << e << " = (" << _edges[e].from << ", " << _edges[e].to << ")" << endl;
+		_edgeProperties.print_properties(e);
+	}
+}
+
+
+void Graph::print_edge_properties()
+{
+	cout << "Edge Properties:" << endl;
+	_edgeProperties.print_properties();
 }
 
 

@@ -255,6 +255,108 @@ TEST(EdgePropertiesWithKnownEdgeId, Positive)
 	EXPECT_TRUE(G.get_edge_property(999, "Units").type == ERROR);
 }
 
+TEST(NodePropertyDeletion, Positive)
+{
+	Graph G;
+
+	G.add_node(1);
+	G.add_node(2);
+	G.add_node(3);
+
+	G.add_node_property("Prop1", DOUBLE);
+	G.set_node_property(1, "Prop1", 1.0);
+	G.set_node_property(2, "Prop1", 2.0);
+	G.set_node_property(3, "Prop1", 3.0);
+
+	G.add_node_property("Prop2", DOUBLE);
+	G.set_node_property(1, "Prop2", 1.0);
+	G.set_node_property(2, "Prop2", 2.0);
+	G.set_node_property(3, "Prop2", 3.0);
+
+	G.add_node_property("Prop3", DOUBLE);
+	G.set_node_property(1, "Prop3", 1.0);
+	G.set_node_property(2, "Prop3", 2.0);
+	G.set_node_property(3, "Prop3", 3.0);
+
+	// Delete node, expecting its properties are cleared
+	EXPECT_TRUE(G.del_node(1));
+	EXPECT_TRUE(G.get_node_property(1, "Prop1").type == ERROR);
+	EXPECT_TRUE(G.get_node_property(1, "Prop2").type == ERROR);
+	EXPECT_TRUE(G.get_node_property(1, "Prop3").type == ERROR);
+
+	// Check property deletion
+	EXPECT_TRUE(G.total_node_properties() == 3);
+	EXPECT_TRUE(G.del_node_property("Prop1"));
+	EXPECT_TRUE(G.total_node_properties() == 2);
+	EXPECT_TRUE(G.del_all_node_properties());
+	EXPECT_TRUE(G.total_node_properties() == 0);
+}
+
+TEST(EdgePropertyDeletion, Positive)
+{
+	Graph G;
+
+	G.add_edge(1, 2);
+	G.add_edge(2, 3);
+	G.add_edge(3, 1);
+
+	G.add_edge_property("Prop1", DOUBLE);
+	G.set_edge_property(1, 2, "Prop1", 1.0);
+	G.set_edge_property(2, 3, "Prop1", 2.0);
+	G.set_edge_property(3, 1, "Prop1", 3.0);
+
+	G.add_edge_property("Prop2", DOUBLE);
+	G.set_edge_property(1, 2, "Prop2", 1.0);
+	G.set_edge_property(2, 3, "Prop2", 2.0);
+	G.set_edge_property(3, 1, "Prop2", 3.0);
+
+	G.add_edge_property("Prop3", DOUBLE);
+	G.set_edge_property(1, 2, "Prop3", 1.0);
+	G.set_edge_property(2, 3, "Prop3", 2.0);
+	G.set_edge_property(3, 1, "Prop3", 3.0);
+
+	// Delete edge, expecting its properties are cleared
+	EXPECT_TRUE(G.del_edge(1, 2));
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Prop1").type == ERROR);
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Prop2").type == ERROR);
+	EXPECT_TRUE(G.get_edge_property(1, 2, "Prop3").type == ERROR);
+
+	// Check property deletion
+	EXPECT_TRUE(G.total_edge_properties() == 3);
+	EXPECT_TRUE(G.del_edge_property("Prop1"));
+	EXPECT_TRUE(G.total_edge_properties() == 2);
+	EXPECT_TRUE(G.del_all_edge_properties());
+	EXPECT_TRUE(G.total_edge_properties() == 0);
+}
+
+TEST(PrintProperties, Positive)
+{
+	Graph G;
+
+	G.add_node(1);
+	G.add_node(2);
+	G.add_edge(1, 2);
+
+	G.add_node_property("NodeStringProp", STRING);
+	G.add_node_property("NodeDoubleProp", DOUBLE);
+	G.print_node_properties();
+
+	G.add_edge_property("EdgeStringProp", STRING);
+	G.add_edge_property("EdgeDoubleProp", DOUBLE);
+	G.print_edge_properties();
+
+
+	G.set_node_property(1, "NodeStringProp", "FooBar");
+	G.set_node_property(1, "NodeDoubleProp", 31415925);
+	G.print_node_properties(1);
+
+	G.set_edge_property(1, 2, "EdgeStringProp", "FooBar");
+	G.set_edge_property(1, 2, "EdgeDoubleProp", 31415925);
+	G.print_edge_properties(1, 2);
+
+	EXPECT_TRUE(true);
+}
+
 int main(int argc, char* argv[])
 {
 	testing::InitGoogleTest(&argc, argv);

@@ -33,38 +33,61 @@ bool PropertyManager::add(PROPERTY_NAME name, PROPERTY_TYPE type)
 }
 
 
-bool PropertyManager::del(PROPERTY_NAME name)
-{
-	// Not implemented
-	return true;
-}
-
-
 bool PropertyManager::clear(ELEMID elemId)
 {
-	// Not implemented
+	// Iterate over all properties removing the values maped to elemId
+	for (PROPERTY_MAP::iterator it = _propertyMap.begin(); it != _propertyMap.end(); ++it)
+	{
+		_propertyMap[it->first].element.erase(elemId);
+	}
+
 	return true;
 }
 
 
-bool PropertyManager::clear_all()
+bool PropertyManager::del(PROPERTY_NAME name)
 {
-	// Not implemented
+	return _propertyMap.erase(name);
+}
+
+
+bool PropertyManager::del_all()
+{
+	_propertyMap.clear();
 	return true;
 }
+
+
+const char* PropertyManager::property_type_to_string(PROPERTY_TYPE type)
+{
+	switch (type)
+	{
+		case STRING:
+			return "STRING";
+		case DOUBLE:
+			return "DOUBLE";
+		default:
+			return "ERROR";
+	}
+}
+
 
 
 void PropertyManager::print_properties(ELEMID elemId)
 {
-	// Not implemented
-	cout << "print properties" << endl;
+	for (PROPERTY_MAP::iterator it = _propertyMap.begin(); it != _propertyMap.end(); ++it)
+	{
+		cout << "   " << it->first << " : " << property_type_to_string(_propertyMap[it->first].type) << " : " << get(elemId, it->first).to_string() << endl;
+	}
 }
 
 
 void PropertyManager::print_properties()
 {
-	// Not implemented
-	cout << "print properties" << endl;
+	for (PROPERTY_MAP::iterator it = _propertyMap.begin(); it != _propertyMap.end(); ++it)
+	{
+		cout << "   " << it->first << " : " << property_type_to_string(_propertyMap[it->first].type) << endl;
+	}
 }
 
 
@@ -83,6 +106,12 @@ PROPERTY_RESULT PropertyManager::get(ELEMID elemId, PROPERTY_NAME name)
 	}
 
 	return propertyResult;
+}
+
+
+size_t PropertyManager::total_properties()
+{
+	return _propertyMap.size();
 }
 
 

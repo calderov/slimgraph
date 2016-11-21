@@ -5,13 +5,16 @@ all:
 	g++ -std=c++11 -isystem ./include demos/demo01.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo01
 	g++ -std=c++11 -isystem ./include demos/demo02.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo02
 	g++ -std=c++11 -isystem ./include demos/demo03.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo03
+	g++ -std=c++11 -isystem ./include demos/demo04.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo04
 
 debug:
 	# COMPILING DEBUG DEMOS TO ./build/debug/
 	if [ ! -d "build" ]; then mkdir build; fi
 	if [ ! -d "build/debug" ]; then mkdir build/debug; fi
 	g++ -g -std=c++11 -isystem ./include demos/demo01.cpp include/graph.cpp include/propertymanager.cpp -o build/debug/demo01
-
+	g++ -g -std=c++11 -isystem ./include demos/demo02.cpp include/graph.cpp include/propertymanager.cpp -o build/debug/demo02
+	g++ -g -std=c++11 -isystem ./include demos/demo03.cpp include/graph.cpp include/propertymanager.cpp -o build/debug/demo03
+	g++ -g -std=c++11 -isystem ./include demos/demo04.cpp include/graph.cpp include/propertymanager.cpp -o build/debug/demo04
 test:
 	# COMPILING UNIT TESTS TO ./build/unittests/
 	if [ ! -d "build" ]; then mkdir build; fi
