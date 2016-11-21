@@ -7,7 +7,7 @@ class PropertyManager {
 public:
 
 	PROPERTY_MAP _propertyMap;
-	
+
 	PropertyManager();
 	~PropertyManager();
 
@@ -17,11 +17,11 @@ public:
 	bool del(PROPERTY_NAME name);
 	bool del_all();
 	bool clear(ELEMID elemId);
-	
+
 	// Properties printing functions
 	void print_properties(ELEMID elemId);
 	void print_properties();
-	
+
 	// Get property values
 	const char* property_type_to_string(PROPERTY_TYPE type);
 	PROPERTY_RESULT get(ELEMID elemId, PROPERTY_NAME name);

@@ -22,7 +22,7 @@ typedef struct NODE
 typedef struct EDGE
 {
 	EDGEID edgeId;
-	NODEID from;	
+	NODEID from;
 	NODEID to;
 } EDGE;
 
@@ -44,7 +44,6 @@ typedef struct PROPERTY_VALUE
 {
 	string valueStr;
 	double valueNum;
-	
 } PROPERTY_VALUE;
 
 

@@ -13,12 +13,11 @@ private:
 
 	PropertyManager _nodeProperties;
 	PropertyManager _edgeProperties;
-	
+
 	EDGEID get_available_edge_id();
 
 public:
 
-	
 	// Constructor and destructor
 	Graph();
 	~Graph();
@@ -59,7 +58,7 @@ public:
 	bool set_node_property(NODEID v, PROPERTY_NAME name, string value);
 	bool del_node_property(PROPERTY_NAME name);
 	bool del_all_node_properties();
-	
+
 	void print_node_properties(NODEID v);
 	void print_node_properties();
 
@@ -80,7 +79,7 @@ public:
 	bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string type);
 	bool del_edge_property(PROPERTY_NAME name);
 	bool del_all_edge_properties();
-	
+
 	void print_edge_properties(NODEID v /*from*/, NODEID u /*to*/);
 	void print_edge_properties(EDGEID e);
 	void print_edge_properties();

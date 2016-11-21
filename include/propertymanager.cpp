@@ -23,12 +23,12 @@ bool PropertyManager::add(PROPERTY_NAME name, PROPERTY_TYPE type)
 	// If the property already exists, abort
 	if (property_exists(name))
 		return false;
-	
+
 	VALUE_MAP valueMap;
 	valueMap.type = type;
-	
+
 	_propertyMap[name] = valueMap;
-	
+
 	return true;
 }
 
@@ -95,7 +95,7 @@ PROPERTY_RESULT PropertyManager::get(ELEMID elemId, PROPERTY_NAME name)
 {
 	PROPERTY_RESULT propertyResult;
 	propertyResult.type = ERROR;
-	
+
 	if (property_exists(name))
 	{
 		if (_propertyMap[name].element.count(elemId))
@@ -122,7 +122,7 @@ bool PropertyManager::set(ELEMID elemId, PROPERTY_NAME name, const char* value)
 		return false;
 
 	// If the expected property type is a number, abort
-	if (_propertyMap[name].type == DOUBLE) 
+	if (_propertyMap[name].type == DOUBLE)
 	{
 		cout << "Error: Property "<< name <<" not set. Incompatible type." << endl;
 		return false;

@@ -189,7 +189,7 @@ bool Graph::add_edge(EDGEID e, NODEID v, NODEID u)
 	// If e is the id of an already existant edge, abort
 	if (edge_exists(e))
 		return false;
-	
+
 	// If (v, u) is already a pair, abort
 	if (node_exists(v) && node_exists(u))
 	{
@@ -416,7 +416,7 @@ PROPERTY_RESULT Graph::get_edge_property(EDGEID e, PROPERTY_NAME name)
 {
 	if (edge_exists(e))
 		return _edgeProperties.get(e, name);
-	
+
 	PROPERTY_RESULT badResult;
 	badResult.type = ERROR;
 	return badResult;
@@ -427,7 +427,7 @@ PROPERTY_RESULT Graph::get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PRO
 {
 	if (edge_exists(v, u))
 		return _edgeProperties.get(get_edge_id(v, u), name);
-	
+
 	PROPERTY_RESULT badResult;
 	badResult.type = ERROR;
 	return badResult;
