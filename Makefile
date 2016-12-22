@@ -1,11 +1,12 @@
 all:
-	# COMPILING DEMOS TO ./build/bin/
+	# COMPILING DEMOS TO ./build/demos/
 	if [ ! -d "build" ]; then mkdir build; fi
-	if [ ! -d "build/bin" ]; then mkdir build/bin; fi
-	g++ -std=c++11 -isystem ./include demos/demo01.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo01
-	g++ -std=c++11 -isystem ./include demos/demo02.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo02
-	g++ -std=c++11 -isystem ./include demos/demo03.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo03
-	g++ -std=c++11 -isystem ./include demos/demo04.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/bin/demo04
+	if [ ! -d "build/demos" ]; then mkdir build/demos; fi
+	g++ -std=c++11 -isystem ./include demos/demo01.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/demos/demo01
+	g++ -std=c++11 -isystem ./include demos/demo02.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/demos/demo02
+	g++ -std=c++11 -isystem ./include demos/demo03.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/demos/demo03
+	g++ -std=c++11 -isystem ./include demos/demo04.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/demos/demo04
+	g++ -std=c++11 -isystem ./include demos/demo05.cpp include/graph.cpp include/propertymanager.cpp -O3 -o build/demos/demo05
 
 debug:
 	# COMPILING DEBUG DEMOS TO ./build/debug/

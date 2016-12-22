@@ -1,7 +1,7 @@
 /*
-Example Demo 01
+Example Demo 02
 
-Stres demo. Creates a graph with 10 million nodes and 1 million edges
+Stress demo. Creates a graph with 10 million nodes and 1 million edges
 */
 
 #include <iostream>
