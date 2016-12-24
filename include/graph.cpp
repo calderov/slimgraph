@@ -76,6 +76,23 @@ EDGEID Graph::get_available_edge_id()
 }
 
 
+NODE Graph::bad_node()
+{
+	NODE bad_node;
+	bad_node.nodeId = BAD_NODEID;
+	return bad_node;
+}
+
+
+
+EDGE Graph::bad_edge()
+{
+	EDGE bad_edge;
+	bad_edge.edgeId = BAD_EDGEID;
+	return bad_edge;
+}
+
+
 // NODE STRUCTURAL OPERATIONS
 
 bool Graph::node_exists(NODEID v)
@@ -128,9 +145,7 @@ NODE Graph::get_node(NODEID v)
 {
 	if (node_exists(v))
 		return _nodes[v];
-	NODE bad_node;
-	bad_node.nodeId = BAD_NODEID;
-	return bad_node;
+	return bad_node();
 }
 
 
@@ -260,6 +275,22 @@ bool Graph::del_edge(NODEID v, NODEID u)
 
 	EDGEID e = _edgeIndex[pair<NODEID, NODEID>(v, u)];
 	return del_edge(e);
+}
+
+
+EDGE Graph::get_edge(EDGEID e)
+{
+	if (edge_exists(e))
+		return _edges[e];
+	return bad_edge();
+}
+
+
+EDGE Graph::get_edge(NODEID v /*from*/, NODEID u /*to*/)
+{
+	if (edge_exists(v, u))
+		return _edges[get_edge_id(v, u)];
+	return bad_edge();
 }
 
 

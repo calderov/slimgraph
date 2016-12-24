@@ -17,6 +17,8 @@ private:
 	PropertyManager _edgeProperties;
 
 	EDGEID get_available_edge_id();
+	NODE bad_node();
+	EDGE bad_edge();
 
 public:
 
@@ -47,6 +49,8 @@ public:
 	bool add_edge(EDGEID e, NODEID v, NODEID u);
 	bool del_edge(EDGEID e);
 	bool del_edge(NODEID v, NODEID u);
+	EDGE get_edge(EDGEID e);
+	EDGE get_edge(NODEID v /*from*/, NODEID u /*to*/);
 
 	// Query an EDGEID from a pair
 	EDGEID get_edge_id(NODEID v, NODEID u);
