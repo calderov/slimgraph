@@ -7,6 +7,7 @@ all:
 	g++ -std=c++11 -isystem ./include demos/demo03.cpp include/*.cpp -O3 -o build/demos/demo03
 	g++ -std=c++11 -isystem ./include demos/demo04.cpp include/*.cpp -O3 -o build/demos/demo04
 	g++ -std=c++11 -isystem ./include demos/demo05.cpp include/*.cpp -O3 -o build/demos/demo05
+	g++ -std=c++11 -isystem ./include demos/demo06.cpp include/*.cpp -O3 -o build/demos/demo06
 
 debug:
 	# COMPILING DEBUG DEMOS TO ./build/debug/
@@ -17,6 +18,7 @@ debug:
 	g++ -g -std=c++11 -isystem ./include demos/demo03.cpp include/*.cpp -o build/debug/demo03
 	g++ -g -std=c++11 -isystem ./include demos/demo04.cpp include/*.cpp -o build/debug/demo04
 	g++ -g -std=c++11 -isystem ./include demos/demo05.cpp include/*.cpp -o build/debug/demo05
+	g++ -g -std=c++11 -isystem ./include demos/demo06.cpp include/*.cpp -o build/debug/demo06
 
 test:
 	# COMPILING UNIT TESTS TO ./build/unittests/

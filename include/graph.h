@@ -38,6 +38,7 @@ public:
 	bool node_exists(NODEID v);
 	bool add_node(NODEID v);
 	bool del_node(NODEID v);
+	NODE get_node(NODEID v);
 
 	// Edge structural operations
 	bool edge_exists(EDGEID e);

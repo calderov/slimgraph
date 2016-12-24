@@ -9,6 +9,7 @@ using namespace std;
 // Graph structure definitions
 #define NODEID unsigned long
 #define EDGEID unsigned long
+#define BAD_NODEID ULONG_MAX
 #define BAD_EDGEID ULONG_MAX
 
 typedef struct NODE

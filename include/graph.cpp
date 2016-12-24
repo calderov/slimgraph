@@ -124,6 +124,16 @@ bool Graph::del_node(NODEID v)
 }
 
 
+NODE Graph::get_node(NODEID v)
+{
+	if (node_exists(v))
+		return _nodes[v];
+	NODE bad_node;
+	bad_node.nodeId = BAD_NODEID;
+	return bad_node;
+}
+
+
 // EDGE STRUCTURAL OPERATIONS
 
 bool Graph::edge_exists(EDGEID e)
