@@ -1,6 +1,8 @@
 #include <string>
 
 #include "../include/graph.h"
+#include "../include/graph_algorithms.h"
+
 #include "gtest/gtest.h"
 
 TEST(AddNodeTest, Positive)
@@ -356,6 +358,37 @@ TEST(PrintProperties, Positive)
 
 	EXPECT_TRUE(true);
 }
+
+
+TEST(DfsWalk, Positive)
+{
+	Graph G;
+
+	G.add_edge(0, 1);
+	G.add_edge(0, 2);
+	G.add_edge(0, 3);
+	G.add_edge(0, 4);
+	G.add_edge(0, 5);
+	G.add_edge(0, 6);
+	G.add_edge(0, 7);
+	G.add_edge(0, 8);
+
+	G.add_edge(1, 9);
+	G.add_edge(1,10);
+	G.add_edge(1,11);
+
+	G.add_edge(11,12);
+	G.add_edge(11,13);
+
+	bool succeed = true;
+	vector<NODEID> dfs = GraphAlgorithms::dfs(&G, 0);
+	vector<NODEID> expectedDfs = {0, 8, 7, 6, 5, 4, 3, 2, 1, 11, 13, 12, 10, 9};
+
+	EXPECT_TRUE(dfs.size() == expectedDfs.size());
+	for (int i = 0; i < dfs.size(); i++)
+		EXPECT_TRUE(dfs[i] == expectedDfs[i]);
+}
+
 
 int main(int argc, char* argv[])
 {
