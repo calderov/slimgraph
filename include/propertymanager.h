@@ -31,12 +31,12 @@ public:
 
 	// Set string property values
 	bool set(ELEMID elemId, PROPERTY_NAME name, const char* value);
-	bool set(ELEMID elemId, PROPERTY_NAME name, string value)
-	{
-		return set(elemId, name, value.c_str());
-	}
+	bool set(ELEMID elemId, PROPERTY_NAME name, string value);
 
-	// Set numerical values
+	/**
+	 * Sets the given number as the value for the given element on the specified property.
+	 * Returns true if the operation succeeded or false otherwise.
+	 */
 	template <typename T> bool set(ELEMID elemId, PROPERTY_NAME name, T value)
 	{
 		// If there is no property with matching name, abort

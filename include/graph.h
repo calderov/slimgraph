@@ -71,6 +71,9 @@ public:
 
 	PROPERTY_RESULT get_node_property(NODEID v, PROPERTY_NAME name);
 
+	/**
+	  * Sets the numerical value for the specified node on the given property.
+	  */
 	template <typename T> bool set_node_property(NODEID v, PROPERTY_NAME name, T value)
 	{
 		if (node_exists(v))
@@ -94,6 +97,9 @@ public:
 	PROPERTY_RESULT get_edge_property(EDGEID e, PROPERTY_NAME name);
 	PROPERTY_RESULT get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name);
 
+	/**
+	  * Sets the numerical value for the specified edge on the given property.
+	  */
 	template <typename T> bool set_edge_property(EDGEID e, PROPERTY_NAME name, T value)
 	{
 		if (edge_exists(e))
@@ -101,6 +107,9 @@ public:
 		return false;
 	}
 
+	/**
+	  * Sets the numerical value for the specified edge (given as a pair of nodes) on the given property.
+	  */
 	template <typename T> bool set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, T value)
 	{
 		if (edge_exists(v, u))

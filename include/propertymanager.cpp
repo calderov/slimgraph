@@ -2,14 +2,25 @@
 #include <iostream>
 #include "propertymanager.h"
 
+
+/**
+ * Property manager constructor.
+ */
 PropertyManager::PropertyManager()
 {}
 
 
+/**
+ * Property manager destructor.
+ */
 PropertyManager::~PropertyManager()
 {}
 
 
+/**
+ * Checks if the property with the given name exists returning
+ * true if it does or false otherwise.
+ */
 bool PropertyManager::property_exists(PROPERTY_NAME name)
 {
 	if(_propertyMap.count(name))
@@ -18,6 +29,11 @@ bool PropertyManager::property_exists(PROPERTY_NAME name)
 }
 
 
+/**
+ * Adds a property with the given name and type. Returns true if
+ * the property was correctly added or false otherwise (e.g. the
+ * property already exists).
+ */
 bool PropertyManager::add(PROPERTY_NAME name, PROPERTY_TYPE type)
 {
 	// If the property already exists, abort
@@ -33,6 +49,9 @@ bool PropertyManager::add(PROPERTY_NAME name, PROPERTY_TYPE type)
 }
 
 
+/**
+ * Removes the values for the given element from all of the properties.
+ */
 bool PropertyManager::clear(ELEMID elemId)
 {
 	// Iterate over all properties removing the values maped to elemId
@@ -45,12 +64,18 @@ bool PropertyManager::clear(ELEMID elemId)
 }
 
 
+/**
+ * Deletes the property with the given name with all of its records.
+ */
 bool PropertyManager::del(PROPERTY_NAME name)
 {
 	return _propertyMap.erase(name);
 }
 
 
+/**
+ * Deletes all the properties from the property manager.
+ */
 bool PropertyManager::del_all()
 {
 	_propertyMap.clear();
@@ -58,6 +83,9 @@ bool PropertyManager::del_all()
 }
 
 
+/**
+ * Given a property type, returns its string representation.
+ */
 const char* PropertyManager::property_type_to_string(PROPERTY_TYPE type)
 {
 	switch (type)
@@ -72,7 +100,9 @@ const char* PropertyManager::property_type_to_string(PROPERTY_TYPE type)
 }
 
 
-
+/**
+ * Prints a lists of the properties and their values for the given element.
+ */
 void PropertyManager::print_properties(ELEMID elemId)
 {
 	for (PROPERTY_MAP::iterator it = _propertyMap.begin(); it != _propertyMap.end(); ++it)
@@ -82,6 +112,9 @@ void PropertyManager::print_properties(ELEMID elemId)
 }
 
 
+/**
+ * Prints a list of the properties of the current property manager.
+ */
 void PropertyManager::print_properties()
 {
 	for (PROPERTY_MAP::iterator it = _propertyMap.begin(); it != _propertyMap.end(); ++it)
@@ -91,6 +124,12 @@ void PropertyManager::print_properties()
 }
 
 
+/**
+ * Gets the value of the given property, for the given element. The result
+ * is encoded as a PROPERTY_RESULT meaning that it may contain either a
+ * string, a number or an error, depending on the type or existance of the
+ * property.
+ */
 PROPERTY_RESULT PropertyManager::get(ELEMID elemId, PROPERTY_NAME name)
 {
 	PROPERTY_RESULT propertyResult;
@@ -109,12 +148,19 @@ PROPERTY_RESULT PropertyManager::get(ELEMID elemId, PROPERTY_NAME name)
 }
 
 
+/**
+ * Returns the total number of properties in the manager.
+ */
 size_t PropertyManager::total_properties()
 {
 	return _propertyMap.size();
 }
 
 
+/**
+ * Sets the given string as the value for the given element on the specified property.
+ * Returns true if the operation succeeded or false otherwise.
+ */
 bool PropertyManager::set(ELEMID elemId, PROPERTY_NAME name, const char* value)
 {
 	// If there is no property with matching name, abort
@@ -168,4 +214,14 @@ bool PropertyManager::set(ELEMID elemId, PROPERTY_NAME name, const char* value)
 	}
 
 	return false;
+}
+
+
+/**
+ * Sets the given string as the value for the given element on the specified property.
+ * Returns true if the operation succeeded or false otherwise.
+ */
+bool PropertyManager::set(ELEMID elemId, PROPERTY_NAME name, string value)
+{
+	return set(elemId, name, value.c_str());
 }

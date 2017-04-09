@@ -62,14 +62,14 @@ typedef struct PROPERTY_RESULT
 
 	string to_string()
 	{
-		string stringValue = "Invalid Value!";
 		switch (type)
 		{
 			case DOUBLE:
 				return std::to_string(value.valueNum);
 			case STRING:
 				return value.valueStr;
+			default:
+				return "Error: Invalid value!";
 		}
-		return stringValue;
 	}
 } PROPERTY_RESULT;
