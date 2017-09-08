@@ -1,44 +1,48 @@
-all:
-	# COMPILING DEMOS TO ./build/demos/
+CC     = g++
+CFLAGS = -O3 -std=c++11 -isystem ./include
+DFLAGS = -std=c++11 -isystem ${GTEST_DIR}/include ${GTEST_DIR}/build/libgtest.a -pthread include/*.cpp
+OBJ    = graph.o propertymanager.o
+ALGS   = dfs.o
+
+# Build demos
+all: $(OBJ) $(ALGS)
+	make dirs
+	$(CC) demos/demo01.cpp -o build/demos/demo01 $(OBJ) $(CFLAGS)
+	$(CC) demos/demo02.cpp -o build/demos/demo02 $(OBJ) $(CFLAGS)
+	$(CC) demos/demo03.cpp -o build/demos/demo03 $(OBJ) $(CFLAGS)
+	$(CC) demos/demo04.cpp -o build/demos/demo04 $(OBJ) $(CFLAGS)
+	$(CC) demos/demo05.cpp -o build/demos/demo05 $(OBJ) $(CFLAGS)
+	$(CC) demos/demo06.cpp -o build/demos/demo06 $(OBJ) $(ALGS) $(CFLAGS)
+	# Demos saved to: build/demos
+
+# Build unit tests
+test:
+	make dirs
+	$(CC) unittest/unittest.cpp -o build/unittest/unittest.ut $(DFLAGS)
+	# Unit tests saved to: build/unittest
+
+# Build coverage tests
+coverage:
+	make dirs
+	$(CC) unittest/unittest.cpp -o build/unittest/unittest.ut $(DFLAGS) --coverage
+	mv *.gcno build/unittest
+	build/unittest/unittest.ut
+	mv *.gcda build/unittest
+	lcov -t "unittest" -o build/unittest/unittest.info -c -d build/unittest
+	genhtml -o build/unittest/unittestCOV build/unittest/unittest.info
+	# Coverage tests report saved to: build/unittest/test01COV/index.html
+
+# Set up build directories
+dirs:
 	if [ ! -d "build" ]; then mkdir build; fi
 	if [ ! -d "build/demos" ]; then mkdir build/demos; fi
-	g++ -std=c++11 -isystem ./include demos/demo01.cpp include/*.cpp -O3 -o build/demos/demo01
-	g++ -std=c++11 -isystem ./include demos/demo02.cpp include/*.cpp -O3 -o build/demos/demo02
-	g++ -std=c++11 -isystem ./include demos/demo03.cpp include/*.cpp -O3 -o build/demos/demo03
-	g++ -std=c++11 -isystem ./include demos/demo04.cpp include/*.cpp -O3 -o build/demos/demo04
-	g++ -std=c++11 -isystem ./include demos/demo05.cpp include/*.cpp -O3 -o build/demos/demo05
-	g++ -std=c++11 -isystem ./include demos/demo06.cpp include/*.cpp -O3 -o build/demos/demo06
-
-debug:
-	# COMPILING DEBUG DEMOS TO ./build/debug/
-	if [ ! -d "build" ]; then mkdir build; fi
-	if [ ! -d "build/debug" ]; then mkdir build/debug; fi
-	g++ -g -std=c++11 -isystem ./include demos/demo01.cpp include/*.cpp -o build/debug/demo01
-	g++ -g -std=c++11 -isystem ./include demos/demo02.cpp include/*.cpp -o build/debug/demo02
-	g++ -g -std=c++11 -isystem ./include demos/demo03.cpp include/*.cpp -o build/debug/demo03
-	g++ -g -std=c++11 -isystem ./include demos/demo04.cpp include/*.cpp -o build/debug/demo04
-	g++ -g -std=c++11 -isystem ./include demos/demo05.cpp include/*.cpp -o build/debug/demo05
-	g++ -g -std=c++11 -isystem ./include demos/demo06.cpp include/*.cpp -o build/debug/demo06
-
-test:
-	# COMPILING UNIT TESTS TO ./build/unittests/
-	if [ ! -d "build" ]; then mkdir build; fi
 	if [ ! -d "build/unittest" ]; then mkdir build/unittest; fi
-	g++ -std=c++11 -isystem ${GTEST_DIR}/include -pthread unittest/test01.cpp include/*.cpp ${GTEST_DIR}/build/libgtest.a -o build/unittest/test01.ut
-	build/unittest/test01.ut
 
-coverage:
-	# COMPILING AND RUNNING COVERAGE TESTS
-	if [ ! -d "build" ]; then mkdir build; fi
-	if [ ! -d "build/unittest" ]; then mkdir build/unittest; fi
-	g++ -std=c++11 -isystem ${GTEST_DIR}/include -pthread unittest/test01.cpp include/*.cpp ${GTEST_DIR}/build/libgtest.a -o build/unittest/test01.ut --coverage
-	mv *.gcno build/unittest
-	build/unittest/test01.ut
-	mv *.gcda build/unittest
-	lcov -t "test01" -o build/unittest/test01.info -c -d build/unittest
-	genhtml -o build/unittest/test01COV build/unittest/test01.info
-	# COVERAGE TEST REPORT SAVED TO build/unittest/test01COV/index.html
-
+# Clean build files
 clean:
-	# DELETING BUILDS FOR DEMOS (RELEASE & DEBUG), UNIT TESTS AND COVERAGE TESTS
-	rm -rfv build/
+	rm -rfv build
+	rm *.o
+
+# Compile objects
+%.o: ./include/%.cpp
+	$(CC) -c -o $@ $< $(CFLAGS)
