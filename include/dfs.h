@@ -1,11 +1,11 @@
 #pragma once
 
 #include <vector>
-#include "igraph.h"
+#include "digraph.h"
 
 using namespace std;
 
 namespace GraphAlgorithms
 {
-	vector<NODEID> dfs(iGraph* G, NODEID root);
+	vector<NODEID> dfs(DiGraph* G, NODEID root);
 }

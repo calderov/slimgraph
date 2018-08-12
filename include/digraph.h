@@ -1,6 +1,6 @@
 #pragma once
 #include "igraph.h"
-#include "propertymanager.h"
+
 
 class DiGraph: public iGraph{
 
