@@ -6,13 +6,13 @@ Creates a graph with 2 nodes and 1 edges. Properties are defined for them and th
 */
 
 #include <iostream>
-#include "graph.h"
+#include "digraph.h"
 
 using namespace std;
 
 int main()
 {
-	Graph G;
+	DiGraph G;
 	
 	G.add_node(1);
 	G.add_node(2);

@@ -1,12 +1,12 @@
 #include <vector>
 #include <algorithm>
-#include "graph.h"
+#include "igraph.h"
 
 using namespace std;
 
 namespace GraphAlgorithms
 {
-	vector<NODEID> dfs(Graph* G, NODEID root)
+	vector<NODEID> dfs(iGraph* G, NODEID root)
 	{
 		vector<NODEID> pending;
 		vector<NODEID> visited;

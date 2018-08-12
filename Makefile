@@ -1,7 +1,7 @@
 CC     = g++
 CFLAGS = -O3 -std=c++11 -isystem ./include
 DFLAGS = -std=c++11 -isystem ${GTEST_DIR}/include ${GTEST_DIR}/build/libgtest.a -pthread include/*.cpp
-OBJ    = graph.o propertymanager.o
+OBJ    = digraph.o propertymanager.o
 ALGS   = dfs.o
 
 # Build demos
@@ -29,8 +29,11 @@ coverage:
 	build/unittest/unittest.ut
 	mv *.gcda build/unittest
 	lcov -t "unittest" -o build/unittest/unittest.info -c -d build/unittest
-	genhtml -o build/unittest/unittestCOV build/unittest/unittest.info
-	# Coverage tests report saved to: build/unittest/test01COV/index.html
+	genhtml -o build/unittest/testcoverage/ build/unittest/unittest.info
+	rm build/unittest/*.gcda
+	rm build/unittest/*.gcno
+	rm build/unittest/*.info
+	# Coverage tests report saved to: build/unittest/testcoverage/index.html
 
 # Set up build directories
 dirs:

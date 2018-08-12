@@ -6,13 +6,13 @@ defined for the nodes and a numerical property is defined for the edges.
 */
 
 #include <iostream>
-#include "graph.h"
+#include "digraph.h"
 
 using namespace std;
 
 int main()
 {
-	Graph G;
+	DiGraph G;
 	
 	G.add_node(1);
 	G.add_node(2);

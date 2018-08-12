@@ -7,7 +7,7 @@ Stress demo. Creates an 8-tree with 1 million nodes
 #include <iostream>
 #include <ctime>
 
-#include "graph.h"
+#include "digraph.h"
 
 using namespace std;
 
@@ -15,7 +15,7 @@ int main()
 {
 	int const MAXNODES = 1000000;
 	
-	Graph G;
+	DiGraph G;
 
 	clock_t time_start;
 	clock_t time_end;

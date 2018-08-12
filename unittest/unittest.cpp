@@ -1,20 +1,20 @@
 #include <string>
 
-#include "../include/graph.h"
+#include "../include/digraph.h"
 #include "../include/graph_algorithms.h"
 
 #include "gtest/gtest.h"
 
 TEST(AddNodeTest, Positive)
 {
-	Graph G;
+	DiGraph G;
 	EXPECT_TRUE (G.add_node(1));
 	EXPECT_FALSE(G.add_node(1));
 }
 
 TEST(AddEdgeTest, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	EXPECT_TRUE (G.add_node(1));
 	EXPECT_TRUE (G.add_node(2));
@@ -36,7 +36,7 @@ TEST(AddEdgeTest, Positive)
 
 TEST(DeleteNodeTest, Positive)
 {
-	Graph G;
+	DiGraph G;
 	
 	EXPECT_TRUE (G.add_node(1));
 	EXPECT_TRUE (G.add_node(2));
@@ -65,7 +65,7 @@ TEST(DeleteNodeTest, Positive)
 
 TEST(DeleteEdgeTest, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	EXPECT_TRUE (G.add_edge(1, 2));
 	EXPECT_TRUE (G.add_edge(777, 2, 3));
@@ -79,7 +79,7 @@ TEST(DeleteEdgeTest, Positive)
 
 TEST(QueryNodeDegrees, Positive)
 {
-	Graph G;
+	DiGraph G;
 	
 	EXPECT_TRUE (G.add_node(1));
 	EXPECT_TRUE (G.add_node(2));
@@ -105,7 +105,7 @@ TEST(QueryNodeDegrees, Positive)
 
 TEST(PrintGraphTest, Positive)
 {
-	Graph G;
+	DiGraph G;
 	G.add_node(1);
 	G.add_node(2);
 	G.add_edge(1, 2);
@@ -116,7 +116,7 @@ TEST(PrintGraphTest, Positive)
 
 TEST(NodeProperties, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	G.add_node(1);
 
@@ -161,7 +161,7 @@ TEST(NodeProperties, Positive)
 
 TEST(EdgeProperties, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	G.add_edge(1, 2);
 
@@ -211,7 +211,7 @@ TEST(EdgeProperties, Positive)
 
 TEST(EdgePropertiesWithKnownEdgeId, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	EDGEID edgeId = 777;
 	G.add_edge(edgeId, 1, 2);
@@ -259,7 +259,7 @@ TEST(EdgePropertiesWithKnownEdgeId, Positive)
 
 TEST(NodePropertyDeletion, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	G.add_node(1);
 	G.add_node(2);
@@ -296,7 +296,7 @@ TEST(NodePropertyDeletion, Positive)
 
 TEST(EdgePropertyDeletion, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	G.add_edge(1, 2);
 	G.add_edge(2, 3);
@@ -333,7 +333,7 @@ TEST(EdgePropertyDeletion, Positive)
 
 TEST(PrintProperties, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	G.add_node(1);
 	G.add_node(2);
@@ -362,7 +362,7 @@ TEST(PrintProperties, Positive)
 
 TEST(DfsWalk, Positive)
 {
-	Graph G;
+	DiGraph G;
 
 	G.add_edge(0, 1);
 	G.add_edge(0, 2);

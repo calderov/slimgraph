@@ -7,7 +7,7 @@ Creates a simple tree and traverses it using DFS
 #include <iostream>
 #include <vector>
 
-#include "graph.h"
+#include "digraph.h"
 #include "graph_algorithms.h"
 
 using namespace std;
@@ -16,7 +16,7 @@ int main()
 {
 	cout << "Creating simple tree" << endl;
 
-	Graph G;
+	DiGraph G;
 	G.add_edge(0, 1);
 	G.add_edge(0, 2);
 	G.add_edge(0, 3);

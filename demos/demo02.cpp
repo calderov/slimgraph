@@ -7,7 +7,7 @@ Stress demo. Creates a graph with 10 million nodes and 1 million edges
 #include <iostream>
 #include <ctime>
 
-#include "graph.h"
+#include "digraph.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ int main()
 	int const MAXNODES = 10000000;
 	int const MAXEDGES = 1000000;
 	
-	Graph G;
+	DiGraph G;
 	
 	clock_t time_start;
 	clock_t time_end;

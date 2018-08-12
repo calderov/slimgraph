@@ -1,11 +1,11 @@
 #include <iostream>
-#include "graph.h"
+#include "digraph.h"
 
 
 /**
- * Graph constructor.
+ * DiGraph constructor.
  */
-Graph::Graph()
+DiGraph::DiGraph()
 {
 	_edgeIdGen = 0;
 	_numNodes = 0;
@@ -14,16 +14,16 @@ Graph::Graph()
 
 
 /**
- * Graph destructor.
+ * DiGraph destructor.
  */
-Graph::~Graph()
+DiGraph::~DiGraph()
 {}
 
 
 /**
  * Print graph nodes and edges.
  */
-void Graph::print_graph()
+void DiGraph::print_graph()
 {
 	cout << "Total nodes:" << _numNodes << endl;
 	cout << "Total edges:" << _numEdges << endl;
@@ -47,7 +47,7 @@ void Graph::print_graph()
 /**
  * Returns the total number of nodes.
  */
-size_t Graph::total_nodes()
+size_t DiGraph::total_nodes()
 {
 	return _numNodes;
 }
@@ -56,7 +56,7 @@ size_t Graph::total_nodes()
 /**
  * Returns the total number of edges.
  */
-size_t Graph::total_edges()
+size_t DiGraph::total_edges()
 {
 	return _numEdges;
 }
@@ -65,7 +65,7 @@ size_t Graph::total_edges()
 /**
  * Returns the given node's degree.
  */
-size_t Graph::node_degree(NODEID v)
+size_t DiGraph::node_degree(NODEID v)
 {
 	return node_indegree(v) + node_outdegree(v);
 }
@@ -74,7 +74,7 @@ size_t Graph::node_degree(NODEID v)
 /**
  * Returns the given node's in-degree.
  */
-size_t Graph::node_indegree(NODEID v)
+size_t DiGraph::node_indegree(NODEID v)
 {
 	return _nodes[v].inNeighbors.size();
 }
@@ -83,7 +83,7 @@ size_t Graph::node_indegree(NODEID v)
 /**
  * Returns the given node's out-degree.
  */
-size_t Graph::node_outdegree(NODEID v)
+size_t DiGraph::node_outdegree(NODEID v)
 {
 	return _nodes[v].outNeighbors.size();
 }
@@ -92,7 +92,7 @@ size_t Graph::node_outdegree(NODEID v)
 /**
  * Generates a unique and safe EDGEID.
  */
-EDGEID Graph::get_available_edge_id()
+EDGEID DiGraph::get_available_edge_id()
 {
 	while (edge_exists(_edgeIdGen))
 	{
@@ -106,7 +106,7 @@ EDGEID Graph::get_available_edge_id()
 /**
  * Generates a bad node.
  */
-NODE Graph::bad_node()
+NODE DiGraph::bad_node()
 {
 	NODE bad_node;
 	bad_node.nodeId = BAD_NODEID;
@@ -117,7 +117,7 @@ NODE Graph::bad_node()
 /**
  * Generates a bad edge.
  */
-EDGE Graph::bad_edge()
+EDGE DiGraph::bad_edge()
 {
 	EDGE bad_edge;
 	bad_edge.edgeId = BAD_EDGEID;
@@ -129,7 +129,7 @@ EDGE Graph::bad_edge()
  * Returns true if the given node exists in the graph, 
  * returns false otherwise.
  */
-bool Graph::node_exists(NODEID v)
+bool DiGraph::node_exists(NODEID v)
 {
 	if (_nodes.count(v))
 		return true;
@@ -141,7 +141,7 @@ bool Graph::node_exists(NODEID v)
  * Adds a node with the given NODEID to the graph. Returns
  * true if the addition succeeded of false otherwise.
  */
-bool Graph::add_node(NODEID v)
+bool DiGraph::add_node(NODEID v)
 {
 	if (node_exists(v))
 		return false;
@@ -161,7 +161,7 @@ bool Graph::add_node(NODEID v)
  * Returns true if the deletion was performed or false if
  * there was no such node in the graph.
  */
-bool Graph::del_node(NODEID v)
+bool DiGraph::del_node(NODEID v)
 {
 	if (!node_exists(v))
 		return false;
@@ -185,7 +185,7 @@ bool Graph::del_node(NODEID v)
 /**
  * Gets a copy of the node that corresponds to the given NODEID.
  */
-NODE Graph::get_node(NODEID v)
+NODE DiGraph::get_node(NODEID v)
 {
 	if (node_exists(v))
 		return _nodes[v];
@@ -197,7 +197,7 @@ NODE Graph::get_node(NODEID v)
  * Returns true if the given edge exists in the graph, 
  * returns false otherwise.
  */
-bool Graph::edge_exists(EDGEID e)
+bool DiGraph::edge_exists(EDGEID e)
 {
 	if (_edges.count(e))
 		return true;
@@ -209,7 +209,7 @@ bool Graph::edge_exists(EDGEID e)
  * Returns true if an edge between the given pair of nodes exists
  * in the graph, returns false otherwise.
  */
-bool Graph::edge_exists(NODEID v, NODEID u)
+bool DiGraph::edge_exists(NODEID v, NODEID u)
 {
 	pair<NODEID, NODEID> e;
 	e = pair<NODEID, NODEID>(v, u);
@@ -224,7 +224,7 @@ bool Graph::edge_exists(NODEID v, NODEID u)
  * Adds an edge between the given pair of nodes to the graph. 
  * Returns true if the addition succeeded of false otherwise.
  */
-bool Graph::add_edge(NODEID v, NODEID u)
+bool DiGraph::add_edge(NODEID v, NODEID u)
 {
 	// If (v, u) is already a pair, abort
 	if (node_exists(v) && node_exists(u))
@@ -268,7 +268,7 @@ bool Graph::add_edge(NODEID v, NODEID u)
  * making sure the inserted edge has the specified EDGEID. 
  * Returns true if the addition succeeded of false otherwise.
  */
-bool Graph::add_edge(EDGEID e, NODEID v, NODEID u)
+bool DiGraph::add_edge(EDGEID e, NODEID v, NODEID u)
 {
 	// If e is the id of an already existant edge, abort
 	if (edge_exists(e))
@@ -313,7 +313,7 @@ bool Graph::add_edge(EDGEID e, NODEID v, NODEID u)
  * Returns true if the deletion was performed or false if
  * there was no such edge in the graph.
  */
-bool Graph::del_edge(EDGEID e)
+bool DiGraph::del_edge(EDGEID e)
 {
 	// If the edge does NOT exists, abort
 	if (!edge_exists(e))
@@ -336,7 +336,7 @@ bool Graph::del_edge(EDGEID e)
  * Returns true if the deletion was performed or false if
  * there was no such edge in the graph.
  */
-bool Graph::del_edge(NODEID v, NODEID u)
+bool DiGraph::del_edge(NODEID v, NODEID u)
 {
 	// If (v, u) is NOT an existing edge, return false
 	if (!edge_exists(v, u))
@@ -350,7 +350,7 @@ bool Graph::del_edge(NODEID v, NODEID u)
 /**
  * Gets a copy of the edge that corresponds to the given EDGEID.
  */
-EDGE Graph::get_edge(EDGEID e)
+EDGE DiGraph::get_edge(EDGEID e)
 {
 	if (edge_exists(e))
 		return _edges[e];
@@ -361,7 +361,7 @@ EDGE Graph::get_edge(EDGEID e)
 /**
  * Gets a copy of the edge between the given pair of nodes.
  */
-EDGE Graph::get_edge(NODEID v /*from*/, NODEID u /*to*/)
+EDGE DiGraph::get_edge(NODEID v /*from*/, NODEID u /*to*/)
 {
 	if (edge_exists(v, u))
 		return _edges[get_edge_id(v, u)];
@@ -372,7 +372,7 @@ EDGE Graph::get_edge(NODEID v /*from*/, NODEID u /*to*/)
 /**
  * Gets the EDGEID of the edge between the given pair of nodes.
  */
-EDGEID Graph::get_edge_id(NODEID v, NODEID u)
+EDGEID DiGraph::get_edge_id(NODEID v, NODEID u)
 {
 	// If no EDGEID corresponds to the given pair, return BAD_EDGEID
 	if (!edge_exists(v, u))
@@ -385,7 +385,7 @@ EDGEID Graph::get_edge_id(NODEID v, NODEID u)
 /**
  * Gets the total number of node properties for the graph.
  */
-size_t Graph::total_node_properties()
+size_t DiGraph::total_node_properties()
 {
 	return _nodeProperties.total_properties();
 }
@@ -394,7 +394,7 @@ size_t Graph::total_node_properties()
 /**
  * Gets the total number of edge properties for the graph.
  */
-size_t Graph::total_edge_properties()
+size_t DiGraph::total_edge_properties()
 {
 	return _edgeProperties.total_properties();
 }
@@ -403,7 +403,7 @@ size_t Graph::total_edge_properties()
 /**
  * Adds a node property with the given name and type.
  */
-bool Graph::add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type)
+bool DiGraph::add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 {
 	return _nodeProperties.add(name, type);
 }
@@ -412,7 +412,7 @@ bool Graph::add_node_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 /**
  * Sets the string value for the specified node on the given property.
  */
-bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, const char* value)
+bool DiGraph::set_node_property(NODEID v, PROPERTY_NAME name, const char* value)
 {
 	if (node_exists(v))
 		return _nodeProperties.set(v, name, value);
@@ -423,7 +423,7 @@ bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, const char* value)
 /**
  * Sets the string value for the specified node on the given property.
  */
-bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, string value)
+bool DiGraph::set_node_property(NODEID v, PROPERTY_NAME name, string value)
 {
 	if (node_exists(v))
 		return _nodeProperties.set(v, name, value);
@@ -434,7 +434,7 @@ bool Graph::set_node_property(NODEID v, PROPERTY_NAME name, string value)
 /**
  * Deletes the given node property.
  */
-bool Graph::del_node_property(PROPERTY_NAME name)
+bool DiGraph::del_node_property(PROPERTY_NAME name)
 {
 	return _nodeProperties.del(name);
 }
@@ -443,7 +443,7 @@ bool Graph::del_node_property(PROPERTY_NAME name)
 /**
  * Deletes all node properties.
  */
-bool Graph::del_all_node_properties()
+bool DiGraph::del_all_node_properties()
 {
 	return _nodeProperties.del_all();
 }
@@ -452,7 +452,7 @@ bool Graph::del_all_node_properties()
 /**
  * Prints the value of all properties for the given node.
  */
-void Graph::print_node_properties(NODEID v)
+void DiGraph::print_node_properties(NODEID v)
 {
 	if (node_exists(v))
 	{
@@ -465,7 +465,7 @@ void Graph::print_node_properties(NODEID v)
 /**
  * Prints the name and type of all node properties.
  */
-void Graph::print_node_properties()
+void DiGraph::print_node_properties()
 {
 	cout << "Node Properties:" << endl;
 	_nodeProperties.print_properties();
@@ -475,7 +475,7 @@ void Graph::print_node_properties()
 /**
  * Gets the given property value for the specified node.
  */
-PROPERTY_RESULT Graph::get_node_property(NODEID v, PROPERTY_NAME name)
+PROPERTY_RESULT DiGraph::get_node_property(NODEID v, PROPERTY_NAME name)
 {
 	if (node_exists(v))
 		return _nodeProperties.get(v, name);
@@ -488,7 +488,7 @@ PROPERTY_RESULT Graph::get_node_property(NODEID v, PROPERTY_NAME name)
 /**
  * Adds an edge property with the given name and type.
  */
-bool Graph::add_edge_property(PROPERTY_NAME name, PROPERTY_TYPE type)
+bool DiGraph::add_edge_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 {
 	return _edgeProperties.add(name, type);
 }
@@ -497,7 +497,7 @@ bool Graph::add_edge_property(PROPERTY_NAME name, PROPERTY_TYPE type)
 /**
  * Sets the string value for the specified edge on the given property.
  */
-bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, const char* value)
+bool DiGraph::set_edge_property(EDGEID e, PROPERTY_NAME name, const char* value)
 {
 	if (edge_exists(e))
 		return _edgeProperties.set(e, name, value);
@@ -508,7 +508,7 @@ bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, const char* value)
 /**
  * Sets the string value for the specified edge on the given property.
  */
-bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, string value)
+bool DiGraph::set_edge_property(EDGEID e, PROPERTY_NAME name, string value)
 {
 	if (edge_exists(e))
 		return _edgeProperties.set(e, name, value);
@@ -519,7 +519,7 @@ bool Graph::set_edge_property(EDGEID e, PROPERTY_NAME name, string value)
 /**
  * Sets the string value for the specified edge (given as a pair of nodes) on the given property.
  */
-bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value)
+bool DiGraph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, const char* value)
 {
 	if (edge_exists(v, u))
 		return _edgeProperties.set(get_edge_id(v, u), name, value);
@@ -530,7 +530,7 @@ bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME 
 /**
  * Sets the string value for the specified edge (given as a pair of nodes) on the given property.
  */
-bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string value)
+bool DiGraph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name, string value)
 {
 	if (edge_exists(v, u))
 		return _edgeProperties.set(get_edge_id(v, u), name, value);
@@ -542,7 +542,7 @@ bool Graph::set_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME 
 /**
  * Deletes the given edge property.
  */
-bool Graph::del_edge_property(PROPERTY_NAME name)
+bool DiGraph::del_edge_property(PROPERTY_NAME name)
 {
 	return _edgeProperties.del(name);
 }
@@ -551,7 +551,7 @@ bool Graph::del_edge_property(PROPERTY_NAME name)
 /**
  * Deletes all edge properties.
  */
-bool Graph::del_all_edge_properties()
+bool DiGraph::del_all_edge_properties()
 {
 	return _edgeProperties.del_all();
 }
@@ -560,7 +560,7 @@ bool Graph::del_all_edge_properties()
 /**
  * Prints the value of all properties for the given edge (given as a pair of nodes).
  */
-void Graph::print_edge_properties(NODEID v, NODEID u)
+void DiGraph::print_edge_properties(NODEID v, NODEID u)
 {
 	if (edge_exists(v, u))
 		print_edge_properties(get_edge_id(v, u));
@@ -570,7 +570,7 @@ void Graph::print_edge_properties(NODEID v, NODEID u)
 /**
  * Prints the value of all properties for the given edge.
  */
-void Graph::print_edge_properties(EDGEID e)
+void DiGraph::print_edge_properties(EDGEID e)
 {
 	if (edge_exists(e))
 	{
@@ -583,7 +583,7 @@ void Graph::print_edge_properties(EDGEID e)
 /**
  * Prints the name and type of all edge properties.
  */
-void Graph::print_edge_properties()
+void DiGraph::print_edge_properties()
 {
 	cout << "Edge Properties:" << endl;
 	_edgeProperties.print_properties();
@@ -593,7 +593,7 @@ void Graph::print_edge_properties()
 /**
  * Gets the given property value for the specified edge.
  */
-PROPERTY_RESULT Graph::get_edge_property(EDGEID e, PROPERTY_NAME name)
+PROPERTY_RESULT DiGraph::get_edge_property(EDGEID e, PROPERTY_NAME name)
 {
 	if (edge_exists(e))
 		return _edgeProperties.get(e, name);
@@ -607,7 +607,7 @@ PROPERTY_RESULT Graph::get_edge_property(EDGEID e, PROPERTY_NAME name)
 /**
  * Gets the given property value for the specified edge (given a a pair of nodes).
  */
-PROPERTY_RESULT Graph::get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name)
+PROPERTY_RESULT DiGraph::get_edge_property(NODEID v /*from*/, NODEID u /*to*/, PROPERTY_NAME name)
 {
 	if (edge_exists(v, u))
 		return _edgeProperties.get(get_edge_id(v, u), name);

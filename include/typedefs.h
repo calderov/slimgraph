@@ -1,3 +1,5 @@
+#pragma once
+
 #include <unordered_map>
 #include <climits>
 #include <string>
@@ -11,6 +13,7 @@ using namespace std;
 #define EDGEID unsigned long
 #define BAD_NODEID ULONG_MAX
 #define BAD_EDGEID ULONG_MAX
+
 
 typedef struct NODE
 {

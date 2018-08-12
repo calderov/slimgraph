@@ -5,13 +5,13 @@ Creates a graph with 6 nodes and 6 edges. Then one of the nodes is removed and
 */
 
 #include <iostream>
-#include "graph.h"
+#include "digraph.h"
 
 using namespace std;
 
 int main()
 {
-	Graph G;
+	DiGraph G;
 	
 	G.add_node(1);
 	G.add_node(2);
