@@ -12,6 +12,15 @@ Creates a simple tree and traverses it using DFS
 
 using namespace std;
 
+void print_walk(vector<NODEID> walk)
+{
+	cout << " [ ";
+	for (NODEID v : walk)
+		cout << v << " ";
+	cout << "] " << endl;
+	cout << endl;
+}
+
 int main()
 {
 	cout << "Creating simple tree" << endl;
@@ -33,15 +42,17 @@ int main()
 	G.add_edge(11,12);
 	G.add_edge(11,13);
 
-	cout << "Running DFS from node 0..." << endl;
-	vector<NODEID> dfs = GraphAlgorithms::dfs(&G, 0);
-	
+	cout << "Built tree:" << endl;
+	G.print_graph();
 	cout << endl;
-	cout << "DFS walk: " << endl;
-	cout << " [ ";
-	for (NODEID v : dfs)
-		cout << v << " ";
-	cout << "] " << endl;
+
+	cout << "DFS walk from node 0: " << endl;
+	vector<NODEID> dfs = GraphAlgorithms::dfs(&G, 0);
+	print_walk(dfs);
+
+	cout << "BFS walk from node 0: " << endl;
+	vector<NODEID> bfs = GraphAlgorithms::bfs(&G, 0);
+	print_walk(bfs);	
 
 	return 0;
 }

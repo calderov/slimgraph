@@ -2,7 +2,7 @@ CC     = g++
 CFLAGS = -O3 -std=c++11 -isystem ./include
 DFLAGS = -std=c++11 -isystem ${GTEST_DIR}/include ${GTEST_DIR}/build/libgtest.a -pthread include/*.cpp
 OBJ    = digraph.o propertymanager.o
-ALGS   = dfs.o
+ALGS   = dfs.o bfs.o
 
 # Build demos
 all: $(OBJ) $(ALGS)
