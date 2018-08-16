@@ -33,6 +33,7 @@ coverage:
 	rm build/unittest/*.gcda
 	rm build/unittest/*.gcno
 	rm build/unittest/*.info
+	xdg-open build/unittest/testcoverage/index.html &
 	# Coverage tests report saved to: build/unittest/testcoverage/index.html
 
 # Set up build directories

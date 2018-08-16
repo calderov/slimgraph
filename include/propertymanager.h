@@ -43,46 +43,24 @@ public:
 		if (!property_exists(name))
 			return false;
 
-		// If the expected property type is a string, abort
-		if (_propertyMap[name].type == STRING) 
+		// If the property type is not a number, abort
+		if (_propertyMap[name].type != DOUBLE) 
 			return false;
 
-		try
+		// If the node already has a value for this property, overwrite
+		if (_propertyMap[name].element.count(elemId))
 		{
-			// If the node already has a value for this property, overwrite
-			if (_propertyMap[name].element.count(elemId))
-			{
-				switch (_propertyMap[name].type)
-				{
-					case DOUBLE:
-						_propertyMap[name].element[elemId].valueNum = (double)value;
-						return true;
-
-					default:
-						return false;
-				}
-			}
-			// The node has no value for this property yet
-			else
-			{
-				// Create new PROPERTY_VALUE
-				PROPERTY_VALUE propertyValue;
-				switch(_propertyMap[name].type)
-				{
-					case DOUBLE:
-						propertyValue.valueNum = (double)value;
-						_propertyMap[name].element[elemId] = propertyValue;
-						return true;
-
-					default:
-						return false;
-				}
-			}
+			_propertyMap[name].element[elemId].valueNum = (double)value;
 		}
-		catch (...)
+		// The node has no value for this property yet
+		else
 		{
-			return false;
+			// Create new PROPERTY_VALUE
+			PROPERTY_VALUE propertyValue;
+			propertyValue.valueNum = (double)value;
+			_propertyMap[name].element[elemId] = propertyValue;
 		}
 
+		return true;
 	}
 };

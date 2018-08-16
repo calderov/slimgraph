@@ -359,6 +359,53 @@ TEST(PrintProperties, Positive)
 	EXPECT_TRUE(true);
 }
 
+TEST(NumericalPropertyToString, Positive)
+{
+	DiGraph G;
+
+	G.add_node(0);
+	G.add_node_property("Property0", DOUBLE);
+	G.set_node_property(0, "Property0", 31415925);
+
+	PROPERTY_RESULT propertyResult =  G.get_node_property(0, "Property0");
+
+	std::string resultString = propertyResult.to_string();
+	std::string expectedString = std::to_string(static_cast<double>(31415925.0));
+
+	EXPECT_TRUE(resultString.compare(expectedString) == 0);
+}
+
+TEST(StringPropertyToString, Positive)
+{
+	DiGraph G;
+
+	G.add_node(0);
+	G.add_node_property("Property0", STRING);
+	G.set_node_property(0, "Property0", "Example value");
+
+	PROPERTY_RESULT propertyResult =  G.get_node_property(0, "Property0");
+
+	std::string resultString = propertyResult.to_string();
+	std::string expectedString = "Example value";
+
+	EXPECT_TRUE(resultString.compare(expectedString) == 0);
+}
+
+TEST(ErrorPropertyToString, Positive)
+{
+	DiGraph G;
+
+	G.add_node(0);
+
+	// Get non existant property from graph
+	PROPERTY_RESULT propertyResult =  G.get_node_property(0, "Property0");
+	EXPECT_TRUE(propertyResult.type == ERROR);
+
+	std::string resultString = propertyResult.to_string();
+	std::string expectedString = "Error: Invalid value!";
+
+	EXPECT_TRUE(resultString.compare(expectedString) == 0);
+}
 
 TEST(DfsWalk, Positive)
 {
@@ -418,6 +465,53 @@ TEST(BfsWalk, Positive)
 		EXPECT_TRUE(bfs[i] == expectedBfs[i]);
 }
 
+TEST(GettingExistingEdgeFromGraphSucceeds, Positive)
+{
+	DiGraph G;
+
+	G.add_node(0);
+	G.add_node(1);
+	
+	// Add edge with id 0, from node 0 to node 1
+	G.add_edge(0, 0, 1);
+
+	// Try to get edge with id 0
+	EDGE e1 = G.get_edge(0);
+	EXPECT_TRUE(e1.edgeId == 0);
+	EXPECT_TRUE(e1.from == 0);
+	EXPECT_TRUE(e1.to == 1);
+	
+	// Try to get edge from node 0 to node 1
+	EDGE e2 = G.get_edge(0, 1);
+	EXPECT_TRUE(e2.edgeId == 0);
+	EXPECT_TRUE(e1.from == 0);
+	EXPECT_TRUE(e1.to == 1);
+}
+
+TEST(GettingUnexistingNodeFromGraphReturnsBadNode, Positive)
+{
+	DiGraph G;
+
+	G.add_node(0);
+	NODE n = G.get_node(1);
+	EXPECT_TRUE(n.nodeId == BAD_NODEID);
+}
+
+TEST(GettingUnexistingEdgeFromGraphReturnsBadEdge, Positive)
+{
+	DiGraph G;
+
+	G.add_node(0);
+	G.add_node(1);
+
+	// Try to get unexistant edge with id 1
+	EDGE e1 = G.get_edge(1);
+	EXPECT_TRUE(e1.edgeId == BAD_EDGEID);
+	
+	// Try to get unexistant edge from node 0 to node 1
+	EDGE e2 = G.get_edge(0, 1);
+	EXPECT_TRUE(e2.edgeId == BAD_EDGEID);
+}
 
 int main(int argc, char* argv[])
 {
