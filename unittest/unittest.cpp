@@ -341,12 +341,13 @@ TEST(PrintProperties, Positive)
 
 	G.add_node_property("NodeStringProp", STRING);
 	G.add_node_property("NodeDoubleProp", DOUBLE);
+	G.add_node_property("NodeErrorProp",  ERROR);
 	G.print_node_properties();
 
 	G.add_edge_property("EdgeStringProp", STRING);
 	G.add_edge_property("EdgeDoubleProp", DOUBLE);
+	G.add_node_property("EdgeErrorProp",  ERROR);
 	G.print_edge_properties();
-
 
 	G.set_node_property(1, "NodeStringProp", "FooBar");
 	G.set_node_property(1, "NodeDoubleProp", 31415925);

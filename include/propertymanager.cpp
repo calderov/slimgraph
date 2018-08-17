@@ -167,53 +167,25 @@ bool PropertyManager::set(ELEMID elemId, PROPERTY_NAME name, const char* value)
 	if (!property_exists(name))
 		return false;
 
-	// If the expected property type is a number, abort
-	if (_propertyMap[name].type == DOUBLE)
-	{
-		cout << "Error: Property "<< name <<" not set. Incompatible type." << endl;
+	// If the expected property type is not a string, abort
+	if (_propertyMap[name].type != STRING)
 		return false;
-	}
 
-	try
+	// If the node already has a value for this property, overwrite
+	if (_propertyMap[name].element.count(elemId))
 	{
-		// If the node already has a value for this property, overwrite
-		if (_propertyMap[name].element.count(elemId))
-		{
-			switch (_propertyMap[name].type)
-			{
-				case STRING:
-					_propertyMap[name].element[elemId].valueStr = value;
-					return true;
-
-				default:
-					cout << "Error: Property "<< name <<" not set. Incompatible type." << endl;
-					return false;
-			}
-		}
-		// The node has no value for this property yet
-		else
-		{
-			// Create new PROPERTY_VALUE
-			PROPERTY_VALUE propertyValue;
-			switch(_propertyMap[name].type)
-			{
-				case STRING:
-					propertyValue.valueStr = value;
-					_propertyMap[name].element[elemId] = propertyValue;
-					return true;
-
-				default:
-					cout << "Error: Property "<< name <<" not set. Incompatible type." << endl;
-					return false;
-			}
-		}
+		_propertyMap[name].element[elemId].valueStr = value;
 	}
-	catch (...)
+	// The node has no value for this property yet
+	else
 	{
-		cout << "Error: Property not set." << endl;
+		// Create new PROPERTY_VALUE
+		PROPERTY_VALUE propertyValue;
+		propertyValue.valueStr = value;
+		_propertyMap[name].element[elemId] = propertyValue;
 	}
 
-	return false;
+	return true;
 }
 
 
